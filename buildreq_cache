@@ -1,0 +1,6 @@
+4.1.0
+alsa-lib-dev
+libsndfile-dev
+libxml2-dev
+pkgconfig(AudioCommon)
+pkgconfig(automotive-dlt)

@@ -1,0 +1,39 @@
+From 3706ddad0024419dfa9a35abe191c36ce9eaa214 Mon Sep 17 00:00:00 2001
+From: Jaska Uimonen <jaska.uimonen@intel.com>
+Date: Thu, 25 Oct 2018 10:45:25 +0300
+Subject: [PATCH] modify config for clear linux stateless
+
+---
+ CMakeLists.smartx.txt                | 2 +-
+ private/src/smartx/IasConfigFile.cpp | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.smartx.txt b/CMakeLists.smartx.txt
+index 4b0fed4..69f60d9 100644
+--- a/CMakeLists.smartx.txt
++++ b/CMakeLists.smartx.txt
+@@ -120,7 +120,7 @@ install( DIRECTORY public/inc/ DESTINATION include
+          PATTERN "testfwx" EXCLUDE
+          PATTERN "volumex" EXCLUDE )
+ install( EXPORT ias-audio-smartx DESTINATION ${CMAKE_INSTALL_LIBDIR}/ias-audio-smartx )
+-install( FILES public/res/smartx_config.txt DESTINATION /etc )
++install( FILES public/res/smartx_config.txt DESTINATION /usr/share/defaults/SmartXbar )
+ 
+ #--------------------------------------------
+ # ias-audio-helperx
+diff --git a/private/src/smartx/IasConfigFile.cpp b/private/src/smartx/IasConfigFile.cpp
+index cb8c0c6..fb062cb 100644
+--- a/private/src/smartx/IasConfigFile.cpp
++++ b/private/src/smartx/IasConfigFile.cpp
+@@ -295,7 +295,7 @@ void IasConfigFile::load()
+     {
+       DLT_LOG_CXX(*mLog, DLT_LOG_INFO, LOG_PREFIX, "Config file", fullConfigPath.c_str(), "not found");
+       // If it does not exist try current directory
+-      fullConfigPath = ".";
++      fullConfigPath = "/usr/share/defaults/SmartXbar/";
+       fullConfigPath /= cConfigFileName.c_str();
+     }
+   }
+-- 
+2.13.6
+
