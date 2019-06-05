@@ -4,7 +4,7 @@
 #
 Name     : SmartXbar
 Version  : 4.1.0
-Release  : 1
+Release  : 2
 URL      : https://github.com/intel/SmartXbar/archive/v4.1.0.tar.gz
 Source0  : https://github.com/intel/SmartXbar/archive/v4.1.0.tar.gz
 Summary  : SmartXbar
