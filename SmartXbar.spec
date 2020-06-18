@@ -4,7 +4,7 @@
 #
 Name     : SmartXbar
 Version  : 4.1.1
-Release  : 6
+Release  : 7
 URL      : https://github.com/intel/SmartXbar/archive/v4.1.1.tar.gz
 Source0  : https://github.com/intel/SmartXbar/archive/v4.1.1.tar.gz
 Summary  : SmartXbar
@@ -53,6 +53,7 @@ Requires: SmartXbar-lib = %{version}-%{release}
 Requires: SmartXbar-bin = %{version}-%{release}
 Requires: SmartXbar-data = %{version}-%{release}
 Provides: SmartXbar-devel = %{version}-%{release}
+Requires: SmartXbar = %{version}-%{release}
 
 %description dev
 dev components for the SmartXbar package.
@@ -78,32 +79,34 @@ license components for the SmartXbar package.
 
 %prep
 %setup -q -n SmartXbar-4.1.1
+cd %{_builddir}/SmartXbar-4.1.1
 %patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1568102369
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1592460714
 mkdir -p clr-build
 pushd clr-build
+export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %cmake .. -DCMAKE_INSTALL_LIBDIR=%{_lib}
-make  %{?_smp_mflags} VERBOSE=1
+make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1568102369
+export SOURCE_DATE_EPOCH=1592460714
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/SmartXbar
-cp LICENSE.txt %{buildroot}/usr/share/package-licenses/SmartXbar/LICENSE.txt
+cp %{_builddir}/SmartXbar-4.1.1/LICENSE.txt %{buildroot}/usr/share/package-licenses/SmartXbar/bec8feed5d6152624b747f316dcbcae24a3b9a94
 pushd clr-build
 %make_install
 popd
@@ -188,4 +191,4 @@ mv %{buildroot}/usr/lib64/ias-audio-smartx/ %{buildroot}/usr/share/cmake/
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/SmartXbar/LICENSE.txt
+/usr/share/package-licenses/SmartXbar/bec8feed5d6152624b747f316dcbcae24a3b9a94
